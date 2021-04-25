@@ -1,6 +1,5 @@
 package ru.netology.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
 
@@ -18,25 +17,8 @@ public class MovieManagerTest {
     private Movie eighth = new Movie("8", "NumberTwo", "comedy", "8");
     private Movie ninth = new Movie("9", "NumberThree", "comedy", "9");
     private Movie tenth = new Movie("10", "NumberFour", "comedy", "10");
-    private Movie eleventh = new Movie("11", "NumberFive", "comedy", "11");
 
-    @BeforeEach
     public void setUp() {
-        manager.add(first);
-        manager.add(second);
-        manager.add(third);
-    }
-
-    @Test
-    public void shouldAddMovie() {
-        Movie[] actual = manager.getLastAdd();
-        Movie[] expected = new Movie[]{third, second, first};
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldGetLast() {
-        MovieManager manager = new MovieManager();
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -47,11 +29,52 @@ public class MovieManagerTest {
         manager.add(eighth);
         manager.add(ninth);
         manager.add(tenth);
-        manager.add(eleventh);
+    }
 
+    @Test
+    public void shouldAddMovie() {
+        manager.add(tenth);
+        Movie[] actual = manager.getAllMovies();
+        Movie[] expected = new Movie[]{tenth};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetLast() {
+        setUp();
         Movie[] actual = manager.getLastAdd();
-        Movie[] expected = new Movie[]{eleventh, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected, actual);
+    }
 
+    @Test
+    public void shouldGetLastAdd() {
+        MovieManager manager = new MovieManager(5);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        Movie[] actual = manager.getLastAdd();
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldOverMaxMovie() {
+        MovieManager manager = new MovieManager(11);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        Movie[] actual = manager.getLastAdd();
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
     }
 }
