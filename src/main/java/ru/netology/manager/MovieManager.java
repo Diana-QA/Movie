@@ -9,6 +9,10 @@ public class MovieManager {
     public MovieManager() {
     }
 
+    public MovieManager(int poster) {
+        this.poster = poster;
+    }
+
     public void add(Movie item) {
 
         int length = items.length + 1;
