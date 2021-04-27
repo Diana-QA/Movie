@@ -33,10 +33,10 @@ public class MovieManager {
     }
 
     public Movie[] getLastAdd() {
-        int poster = this.poster;
-        if (poster > items.length)
-            poster = items.length;
-        Movie[] result = new Movie[poster];
+        int poster1 = poster;
+        if (poster1 > items.length)
+            poster1 = items.length;
+        Movie[] result = new Movie[poster1];
         for (int i = 0; i < result.length; i++) {
             int index = items.length - i - 1;
             result[i] = items[index];
